@@ -11,7 +11,7 @@
 #s_left {
   width:15%;
   height: 45px;
-  background-color: #6099f5;
+  background-color: #42A5F5;
   float: left;
   text-align: center;
   line-height: 45px;
@@ -21,7 +21,7 @@
 #contents {
   width: 70%;
   height: 45px;
-  background-color: #6099f5;
+  background-color: #42A5F5;
   float: left;
   text-align: center;
   line-height: 45px;
@@ -33,7 +33,7 @@
 #s_right {
   width: 15%;
   height: 45px;
-  background-color: #6099f5;
+  background-color: #42A5F5;
   float: left;
   text-align: center;
   line-height: 45px;

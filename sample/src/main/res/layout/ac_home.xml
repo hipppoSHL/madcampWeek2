@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     tools:context="com.rd.pageindicatorview.home.HomeActivity">
 
-    
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
