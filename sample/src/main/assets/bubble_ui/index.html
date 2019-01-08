@@ -1,14 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" class="d">
+
 <head>
     <meta charset="UTF-8">
-    <title>Apple Music Style Bubble UI</title>
+    <title>Contacts</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
 </head>
+
 <body>
-<div width="100%" height="100%" id="bubbles"></div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js'></script>
+<div style="overflow: auto;" id="toolbar">
+    <div id="s_left">
+        <i class="fas fa-plus" style="color:white; font-size: 18px;" data-toggle="modal" data-target="#exampleModalCenter1"></i>
+    </div>
+    <div id="contents">Contacts</div>
+    <div id="s_right">
+        <!-- <button type="button" class="btn btn-primary" id="refresh">
+            업데이트
+        </button> -->
+        <i class="fas fa-sync-alt" id="refresh" style="color: white; font-size: 18px"></i>
+    </div>
+</div>
+<div id="bubbles"></div>
+<!-- 리스트, 없애면안돼 -->
+<div class="list-group" style="padding: 3%;" id="listlist">
+</div>
+
+<div style="padding-right: 6%; margin-bottom: 3%; text-align: right; font-size: 13px">
+    <i id="people_num"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="inputForm" method="post" action="">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">연락처 추가</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">이름</span>
+                        </div>
+                        <input name="name" id="name" type="text" class="form-control" placeholder="홍길동" aria-label="Name"
+                               aria-describedby="basic-addon1">
+                        <label for="name"></label>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">전화번호</span>
+                        </div>
+                        <input name="number" id="number" class="form-control" placeholder="000-0000-0000" type="tel"
+                               pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" aria-label="Number" aria-describedby="basic-addon1"><label
+                            for="number"></label>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input name="email" id="email" type="email" class="form-control" placeholder="aaaaaa@example.aaa"
+                               aria-label="Email" aria-describedby="basic-addon1"><label for="email"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <input type="button" class="btn btn-primary" value="추가" id="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_name">이름</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item" id="number_list">010-1234-5678</li>
+                    <li class="list-group-item" id="email_list">abcdefg@hijklmnop.qrs</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="phonecall" class="btn btn-primary" data-dismiss="modal">전화</button>
+                <button type="button" id="message" class="btn btn-success">문자</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- javascript 소스들 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script  src="js/index.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js'></script>
+<script src="js/index.js" type="text/javascript"></script>
+<script src="js/contact_submit.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>

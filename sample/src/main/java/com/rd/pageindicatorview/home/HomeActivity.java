@@ -1,17 +1,20 @@
 package com.rd.pageindicatorview.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.rd.PageIndicatorView;
 import com.rd.pageindicatorview.base.BaseActivity;
@@ -24,6 +27,7 @@ import java.util.List;
 
 
 public class HomeActivity extends BaseActivity {
+    private static final String ENTRY_URL = "file:///android_asset/bubble_ui/index.html";
 
     private PageIndicatorView pageIndicatorView;
     private Customization customization;
@@ -38,6 +42,8 @@ public class HomeActivity extends BaseActivity {
         initToolbar();
         initViews();
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -99,11 +105,27 @@ public class HomeActivity extends BaseActivity {
         WebView webView = new WebView(this);
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
+        webView.addJavascriptInterface(new Object() {
+            @JavascriptInterface
+            public void justDoItCall(String keyword) {
+                String tel = "tel:" + keyword;
+//                Toast.makeText(HomeActivity.this, "Keyword is " + keyword, Toast.LENGTH_LONG).show();
+                startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+            }
+            @JavascriptInterface
+            public void justDoItMessage(String keyword) {
+                String tel = "tel:" + keyword;
+                Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+                sendIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                sendIntent.setType("vnd.android-dir/mms-sms");
+                sendIntent.setData(Uri.parse("sms:" + tel));
+                startActivity(sendIntent);
+            }
+        }, "Zeany");
         WebSettings webSettings = webView.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        // webSettings.setSupportZoom(false); // 확대,축소 기능을 사용할 수 있도록 설정
-        // webSettings.setBuiltInZoomControls(false);
-        // webSettings.setDisplayZoomControls(false);
+
+
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl(url);
         return webView;

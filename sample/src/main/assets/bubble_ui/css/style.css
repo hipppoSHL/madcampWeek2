@@ -1,11 +1,41 @@
 #bubbles {
-  position: absolute;
+  /* position: absolute; */
   width: 100vw;
-  height: 100vh;
+  height: 60vh;
   top: 0;
   left: 0;
+  align-content: center;
+  padding: 3%;
 }
 
-body {
-    background-color: #edc855;
+#s_left {
+  width:15%;
+  height: 45px;
+  background-color: #6099f5;
+  float: left;
+  text-align: center;
+  line-height: 45px;
+  padding: 2px
+}
+
+#contents {
+  width: 70%;
+  height: 45px;
+  background-color: #6099f5;
+  float: left;
+  text-align: center;
+  line-height: 45px;
+  color: white;
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#s_right {
+  width: 15%;
+  height: 45px;
+  background-color: #6099f5;
+  float: left;
+  text-align: center;
+  line-height: 45px;
+  padding: 2px
 }
