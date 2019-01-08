@@ -82,7 +82,7 @@ public class HomeActivity extends BaseActivity {
         List<View> pageList = new ArrayList<>();
         pageList.add(createWebView("file:///android_asset/bubble_ui/index.html"));
         pageList.add(createPageView(R.color.google_red));
-        pageList.add(createPageView(R.color.google_blue));
+        pageList.add(createWebView("file:///android_asset/tab3/index.html"));
 
 
         return pageList;
